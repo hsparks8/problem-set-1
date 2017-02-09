@@ -14,4 +14,20 @@ answer_1=$(gzcat $states \
     | sed 's/"//g') 
 
 echo "answer-1: $answer_1"
+datasets='/vol12/home/hsparks8/data-sets/misc'
+# which state in states.tab.gz has the lowest murder rate
+states="$datasets/states.tab.gz"
+
+answer_1=$(zcat $states \
+    | grep
+
+
+
+
+
+
+
+
+
+
 
