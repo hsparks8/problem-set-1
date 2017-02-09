@@ -19,7 +19,7 @@ datasets='/vol12/home/hsparks8/data-sets/misc'
 states="$datasets/states.tab.gz"
 
 answer_1=$(zcat $states \
-    | grep
+    | grep 'thisorthat'
 
 
 
