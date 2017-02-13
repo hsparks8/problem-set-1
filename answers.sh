@@ -1,7 +1,7 @@
 #! /usr/bin/env bash 
 
 
-datasets="vo12/home/hsparks8/data-sets"
+datasets="/vol2/home/hsparks8/data-sets"
 
 # question 1.  which state in states.tab.gz has the lowest murder rate
 
@@ -24,7 +24,7 @@ sample="$datasets/fasta/sample.fa"
 
 
 answer_2=$(grep '^>' $sample \
-    | wc -1)
+    | wc -l)
 
 echo "answer-2: $answer_2"
 
@@ -36,7 +36,7 @@ answer_3=$(zcat $CpG \
     | cut -f4 \
     | sort -k4 \
     | uniq \
-    | wc -1)
+    | wc -l)
 
 echo "answer-3: $answer_3"
 
@@ -44,8 +44,8 @@ echo "answer-3: $answer_3"
 
 SP1="$datasets/fastq/SP1.fq"
 
-answer_4=$( grep '^@cluster' SP1 \
-    | wc -1)
+answer_4=$( grep '^@cluster' $SP1 \
+    | wc -l)
 
 echo "answer-4: $answer_4"
 
@@ -64,7 +64,7 @@ echo "answer-5: $answer_5"
 sample="$datasets/fasta/sample.fa"
 
 answer_6=$(grep -v '^>' $sample \
-    | head -1 \
+    | head -n 1 \
     | wc -m)
 
 echo "answer-6: $answer_6"
@@ -74,10 +74,10 @@ echo "answer-6: $answer_6"
 genes="$datasets/bed/genes.hg19.bed.gz"
 
 answer_7=$(zcat $genes \
-    | awk '{0FS="\t"}{print $2 -$1, $3}' \
+    | awk '{OFS="\t"}{print $2 -$1, $3}' \
     | sort -k1nr \
     | cut -f2 \
-    | head -1)
+    | head -n 1)
 
 echo "answer-7: $answer_7"
 
@@ -88,7 +88,7 @@ genes="$datasets/bed/genes.hg19.bed.gz"
 answer_8=$(zcat $genes \
     | cut -f1 \
     | sort -u \
-    | wc -1)
+    | wc -l)
 
 echo "answer-8: $answer_8"
 
@@ -99,7 +99,7 @@ peaks="$datasets/bed/peaks.chr22.bed.gz"
 answer_9=$(zcat $peaks \
     | grep -v 'CTCFL' \
     | grep 'CTCF' \
-    | wc -1)
+    | wc -l)
 
 echo "answer-9: $answer_9"
 
@@ -107,11 +107,12 @@ echo "answer-9: $answer_9"
 
 lamina="$datasets/bed/lamina.bed"
 
-answer_10=$(awk '{print $1, $2, $3}' $lamina \
+answer_10=$( grep -v '^#' $lamina \
+    | awk '{print $1, $2, $3}' \
     | awk '{OFS="\t"} {print $1, $3 - $2}' \
-    | sort -k2
+    | sort -k2 \
     | cut -f1 \
-    | head -1)
+    | head -n 1)
 
     echo "answer-10: $answer_10"
 
